@@ -25,17 +25,17 @@ import Photos
 open class AssetsPickerViewController: UINavigationController {
     
     @objc open weak var pickerDelegate: AssetsPickerViewControllerDelegate?
-    open var selectedAssets: [PHAsset] {
+    @objc open var selectedAssets: [PHAsset] {
         return photoViewController.selectedAssets
     }
     
-    open var isShowLog: Bool = false {
+    @objc open var isShowLog: Bool = false {
         didSet {
             TinyLog.isShowInfoLog = isShowLog
             TinyLog.isShowErrorLog = isShowLog
         }
     }
-    public var pickerConfig: AssetsPickerConfig! {
+    @objc public var pickerConfig: AssetsPickerConfig! {
         didSet {
             if let config = self.pickerConfig?.prepare() {
                 AssetsManager.shared.pickerConfig = config
@@ -59,6 +59,7 @@ open class AssetsPickerViewController: UINavigationController {
     public convenience init() {
         self.init(nibName: nil, bundle: nil)
     }
+    
     
     func commonInit() {
         let config = AssetsPickerConfig().prepare()

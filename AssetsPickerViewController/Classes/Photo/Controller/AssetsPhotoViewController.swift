@@ -9,8 +9,8 @@
 import UIKit
 import Photos
 import PhotosUI
-import Device
-import SnapKit
+//import Device
+//import SnapKit
 
 // MARK: - AssetsPhotoViewController
 open class AssetsPhotoViewController: UIViewController {

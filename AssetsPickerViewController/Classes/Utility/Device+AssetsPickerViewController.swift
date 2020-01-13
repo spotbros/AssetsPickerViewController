@@ -5,7 +5,7 @@
 //  Created by DragonCherry on 19/12/2017.
 //
 
-import Device
+//import Device
 
 extension Device {
     static func safeAreaInsets(isPortrait: Bool) -> UIEdgeInsets {

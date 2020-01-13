@@ -9,7 +9,8 @@
 import UIKit
 import Photos
 
-open class AssetsPickerConfig {
+@objcMembers
+@objc open class AssetsPickerConfig : NSObject {
 
     // MARK: - Localized Strings Config
 
@@ -37,6 +38,8 @@ open class AssetsPickerConfig {
     
     // MARK: Fetch
     open var albumFetchOptions: [PHAssetCollectionType: PHFetchOptions]?
+    open var albumFetchMediaType: String = "photos"
+    
     
     // MARK: Order
     /// by giving this comparator, albumFetchOptions going to be useless
@@ -119,7 +122,7 @@ open class AssetsPickerConfig {
         return CGSize(width: edge, height: edge)
     }
     
-    public init() {}
+    public override init() {}
     
     @discardableResult
     open func prepare() -> Self {
@@ -165,21 +168,25 @@ open class AssetsPickerConfig {
         
         _assetCacheSize = CGSize(width: assetWidth * scale, height: assetWidth * scale)
         
-        // asset fetch options by default
-        if assetFetchOptions == nil {
-            let options = PHFetchOptions()
-            options.includeHiddenAssets = albumIsShowHiddenAlbum
-            options.sortDescriptors = [
-                NSSortDescriptor(key: "creationDate", ascending: true),
-                NSSortDescriptor(key: "modificationDate", ascending: true)
-            ]
+        
+        let options = PHFetchOptions()
+        options.includeHiddenAssets = albumIsShowHiddenAlbum
+        options.sortDescriptors = [
+            NSSortDescriptor(key: "creationDate", ascending: true),
+            NSSortDescriptor(key: "modificationDate", ascending: true)
+        ]
+        if self.albumFetchMediaType == "photos" {
+            options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        }else if self.albumFetchMediaType == "videos"{
+            options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.video.rawValue)
+        }else{
             options.predicate = NSPredicate(format: "mediaType = %d OR mediaType = %d", PHAssetMediaType.image.rawValue, PHAssetMediaType.video.rawValue)
-            assetFetchOptions = [
-                .smartAlbum: options,
-                .album: options,
-                .moment: options
-            ]
         }
+        assetFetchOptions = [
+            .smartAlbum: options,
+            .album: options,
+            .moment: options,
+        ]
         
         return self
     }

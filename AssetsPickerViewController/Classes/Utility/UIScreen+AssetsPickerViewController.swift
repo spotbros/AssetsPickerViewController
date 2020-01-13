@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Device
+//import Device
 
 extension UIScreen {
     
