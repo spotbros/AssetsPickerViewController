@@ -35,7 +35,8 @@ open class AssetsPhotoViewController: UIViewController {
         return buttonItem
     }()
     fileprivate lazy var doneButtonItem: UIBarButtonItem = {
-        let buttonItem = UIBarButtonItem.init(barButtonSystemItem: .done,
+        let buttonItem = UIBarButtonItem.init(title: String(key: "Done"),
+                                              style: UIBarButtonItem.Style.done,
                                               target: self,
                                               action: #selector(pressedDone(button:)))
         return buttonItem
