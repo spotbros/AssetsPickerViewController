@@ -1,0 +1,29 @@
+
+/* Common */
+"Cancel" = "Cancel·lar";
+"Done" = "Seleccionar";
+
+/* Albums */
+"Title_Albums" = "Àlbums";
+"Title_Section_MyAlbums" = "Els Meus Àlbums";
+
+/* Footer */
+"Footer_Photos" = "%@ Fotos";
+"Footer_Videos" = "%@ Vídeos";
+"Footer_Items" = "%@ Fotos, %@ Vídeos";
+
+/* Selected Status on Title */
+"Title_Selected_Photo" = "%@ Foto Seleccionada";
+"Title_Selected_Photos" = "%@ Fotos Seleccionades";
+"Title_Selected_Video" = "%@ Vídeo Seleccionat";
+"Title_Selected_Videos" = "%@ Vídeos Seleccionats";
+"Title_Selected_Items" = "%@ Elements Seleccionats";
+
+/* No Items in Photo Library */
+"Title_No_Items" = "No Hi Ha Fotos o Vídeos";
+"Message_No_Items" = "Pots fer fotos i vídeos amb la càmera, o sincronitzar fotos i vídeos al teu %@ utilitzant iTunes.";
+"Message_No_Items_Camera" = "Pots sincronitzar fotos i vídeos al teu %@ utilitzant iTunes.";
+
+/* No Permission */
+"Title_No_Permission" = "Aquesta aplicació no té accés a les teves fotos o vídeos.";
+"Message_No_Permission" = "Pots habilitar l'accés en la Configuració de Privacitat.";
