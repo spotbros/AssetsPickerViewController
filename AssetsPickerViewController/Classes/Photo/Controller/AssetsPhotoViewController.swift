@@ -41,6 +41,16 @@ open class AssetsPhotoViewController: UIViewController {
                                               action: #selector(pressedDone(button:)))
         return buttonItem
     }()
+    fileprivate lazy var HDButtonItem: UIBarButtonItem = {
+        let buttonItem = UIBarButtonItem(image: getHDButtonImage(),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(pressedHDButton))
+        return buttonItem
+    }()
+    func getHDButtonImage() -> UIImage? {
+        return UIImage(named: isHDSelected ? "deselect-hd" : "select-hd")
+    }
     fileprivate let emptyView: AssetsEmptyView = {
         return AssetsEmptyView()
     }()
@@ -53,6 +63,8 @@ open class AssetsPhotoViewController: UIViewController {
     fileprivate var picker: AssetsPickerViewController {
         return navigationController as! AssetsPickerViewController
     }
+    fileprivate var isHDSelected: Bool = false
+
     fileprivate var tapGesture: UITapGestureRecognizer?
     fileprivate var syncOffsetRatio: CGFloat = -1
     
@@ -243,7 +255,11 @@ extension AssetsPhotoViewController {
     
     func setupBarButtonItems() {
         navigationItem.leftBarButtonItem = cancelButtonItem
-        navigationItem.rightBarButtonItem = doneButtonItem
+        if (pickerConfig.showHDOption) {
+            navigationItem.rightBarButtonItems = [HDButtonItem, doneButtonItem]
+        } else {
+            navigationItem.rightBarButtonItems = [doneButtonItem]
+        }
         doneButtonItem.isEnabled = false
     }
     
@@ -515,7 +531,12 @@ extension AssetsPhotoViewController {
         navigationController?.dismiss(animated: true, completion: {
             self.delegate?.assetsPicker?(controller: self.picker, didDismissByCancelling: false)
         })
-        delegate?.assetsPicker(controller: picker, selected: selectedArray)
+        delegate?.assetsPicker(controller: picker, selected: selectedArray, hd: isHDSelected)
+    }
+    
+    @objc func pressedHDButton() {
+        isHDSelected.toggle()
+        HDButtonItem.image = getHDButtonImage()
     }
     
     @objc func pressedTitle(gesture: UITapGestureRecognizer) {

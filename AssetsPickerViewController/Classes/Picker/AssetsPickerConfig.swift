@@ -92,6 +92,7 @@ import Photos
     open var assetFetchOptions: [PHAssetCollectionType: PHFetchOptions]?
     
     // MARK: Custom Layout
+    open var showHDOption: Bool = false
     open var assetCellType: AnyClass = AssetsPhotoCell.classForCoder()
     private var _assetCacheSize: CGSize = .zero
     open var assetForcedCacheSize: CGSize?
