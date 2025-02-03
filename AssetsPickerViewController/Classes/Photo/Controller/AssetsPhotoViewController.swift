@@ -49,7 +49,7 @@ open class AssetsPhotoViewController: UIViewController {
         return buttonItem
     }()
     func getHDButtonImage() -> UIImage? {
-        return UIImage(named: isHDSelected ? "deselect-hd" : "select-hd")
+        return UIImage(named: isHDSelected ? "deselect-hd" : "select-hd")?.withRenderingMode(.alwaysOriginal)
     }
     fileprivate let emptyView: AssetsEmptyView = {
         return AssetsEmptyView()
@@ -64,6 +64,7 @@ open class AssetsPhotoViewController: UIViewController {
         return navigationController as! AssetsPickerViewController
     }
     fileprivate var isHDSelected: Bool = false
+    fileprivate var enabledDynamicTitle: Bool = false
 
     fileprivate var tapGesture: UITapGestureRecognizer?
     fileprivate var syncOffsetRatio: CGFloat = -1
@@ -470,20 +471,22 @@ extension AssetsPhotoViewController {
         
         var titleString: String = title(forAlbum: AssetsManager.shared.selectedAlbum)
         
-        if imageCount > 0 && videoCount > 0 {
-            titleString = String(format: String(key: "Title_Selected_Items"), NumberFormatter.decimalString(value: imageCount + videoCount))
-        } else {
-            if imageCount > 0 {
-                if imageCount > 1 {
-                    titleString = String(format: String(key: "Title_Selected_Photos"), NumberFormatter.decimalString(value: imageCount))
-                } else {
-                    titleString = String(format: String(key: "Title_Selected_Photo"), NumberFormatter.decimalString(value: imageCount))
-                }
-            } else if videoCount > 0 {
-                if videoCount > 1 {
-                    titleString = String(format: String(key: "Title_Selected_Videos"), NumberFormatter.decimalString(value: videoCount))
-                } else {
-                    titleString = String(format: String(key: "Title_Selected_Video"), NumberFormatter.decimalString(value: videoCount))
+        if  enabledDynamicTitle {
+            if imageCount > 0 && videoCount > 0 {
+                titleString = String(format: String(key: "Title_Selected_Items"), NumberFormatter.decimalString(value: imageCount + videoCount))
+            } else {
+                if imageCount > 0 {
+                    if imageCount > 1 {
+                        titleString = String(format: String(key: "Title_Selected_Photos"), NumberFormatter.decimalString(value: imageCount))
+                    } else {
+                        titleString = String(format: String(key: "Title_Selected_Photo"), NumberFormatter.decimalString(value: imageCount))
+                    }
+                } else if videoCount > 0 {
+                    if videoCount > 1 {
+                        titleString = String(format: String(key: "Title_Selected_Videos"), NumberFormatter.decimalString(value: videoCount))
+                    } else {
+                        titleString = String(format: String(key: "Title_Selected_Video"), NumberFormatter.decimalString(value: videoCount))
+                    }
                 }
             }
         }
